@@ -1,0 +1,172 @@
+/* 기본 설정 */
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* 헤더 */
+header {
+  background-color: #4a90e2;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-logout {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.btn-create-room {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* 화면 전환 공통 */
+.view {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.active {
+  display: flex;
+}
+
+/* 로그인 화면 */
+.login-box {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+#checkLogin {
+  color: #d93025;
+  font-size: 14px;
+  min-height: 20px;
+  margin-bottom: 10px;
+}
+
+/* 버튼 공통 */
+button.primary {
+  width: 100%;
+  padding: 10px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+button.secondary {
+  width: 100%;
+  padding: 10px;
+  background-color: #9aa0a6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* 채팅방 목록 */
+.room-item {
+  background: #f9f9f9;
+  border-bottom: 1px solid #eee;
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.room-item:hover {
+  background-color: #eef;
+}
+
+/* 채팅 화면 */
+#chat-messages {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 10px;
+  background-color: #e5ddd5;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  max-width: 70%;
+  padding: 8px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.message.my {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+}
+
+.message.other {
+  align-self: flex-start;
+  background-color: white;
+}
+
+.input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background: white;
+}
+
+.input-area input {
+  margin-bottom: 0;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+.input-area button {
+  width: 60px;
+  margin-left: 10px;
+  border-radius: 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

@@ -1,16 +1,53 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>1:1 채팅 클라이언트</title>
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <p>ID: <input type="text" id="ID" /></p>
-    <p>PW: <input type="text" id="PW" /></p>
-    <p id="checkLogin"></p>
-    <button id="logInBtn">Login</button>
-    <button id="logUpBtn">LogUp</button>
+    <div class="container">
+      <header id="main-header" style="display: none">
+        <div><span id="welcome-msg"></span></div>
+        <button class="btn-logout" id="logoutBtn">로그아웃</button>
+        <button class="btn-create-room" id="createRoomBtn">채팅방생성</button>
+      </header>
+
+      <div id="view-login" class="view active">
+        <div class="login-box">
+          <h2>로그인</h2>
+          <input type="text" id="ID" placeholder="ID" />
+          <input type="password" id="PW" placeholder="PW" />
+          <p id="checkLogin"></p>
+          <button id="logInBtn" class="primary">Login</button>
+          <button id="signUpBtn" class="secondary">SignUp</button>
+        </div>
+      </div>
+
+      <div id="view-room-list" class="view">
+        <h3>채팅방 목록</h3>
+        <div id="room-list-container"></div>
+      </div>
+
+      <div id="view-chat" class="view" style="padding: 0">
+        <div
+          style="padding: 10px; background: #eee; border-bottom: 1px solid #ddd"
+        >
+          <button id="backBtn">← 나가기</button>
+          <span
+            id="current-room-name"
+            style="margin-left: 10px; font-weight: bold"
+          ></span>
+        </div>
+        <div id="chat-messages"></div>
+        <div class="input-area">
+          <input type="text" id="msg-input" placeholder="메시지..." />
+          <button id="sendBtn">전송</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
-<script src="main.js"></script>
