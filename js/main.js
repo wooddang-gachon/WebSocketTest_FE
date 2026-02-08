@@ -1,9 +1,24 @@
 import * as api from "./api.js";
 import * as ui from "./ui.js";
+// import { io } from "socket.io-client";
+import { SERVER_URL } from "./config.js";
 
 let currentUser = null;
 let currentUserNum = null;
 let currentSocket = null;
+
+let currentChatroom_num = null;
+
+const socket = io(SERVER_URL);
+
+socket.on("connect", () => {
+  console.log("[Socket] 서버에 연결되었습니다! ID:", socket.id);
+});
+
+// 서버로부터 메시지 수신 (newMessage 이벤트)
+socket.on("send-message", (data) => {
+  ui.appendMessage("other", data.message_text);
+});
 
 // [유틸] 입력값 가져오기
 function getIdPw() {
@@ -67,7 +82,7 @@ async function loadRoomList(num) {
       div.className = "room-item";
       div.innerHTML = `<span>${room.chatroom_name}</span> <span>입장 ></span>`;
       div.addEventListener("click", () =>
-        enterRoom(room.user_num, room.chatroom_name),
+        enterRoom(room.chatroom_num, room.chatroom_name),
       );
       listContainer.appendChild(div);
     });
@@ -82,7 +97,9 @@ function enterRoom(roomId, roomName) {
   document.getElementById("chat-messages").innerHTML = "";
   ui.showView("view-chat");
   console.log(`방 입장: ${roomId}`);
+  currentChatroom_num = roomId;
   // currentSocket = new WebSocket(...) 추가 가능
+  socket.emit("join_room", { chatroom_num: currentChatroom_num });
 }
 
 // 6. 방 생성
@@ -108,10 +125,18 @@ document.getElementById("createRoomBtn").addEventListener("click", async () => {
 function sendMessage() {
   const input = document.getElementById("msg-input");
   const text = input.value;
-  if (!text.trim()) return;
+
   ui.appendMessage("me", text);
-  console.log("메시지 전송:", text);
+  const data = {
+    chatroom_num: currentChatroom_num, // 테스트용 방 번호
+    user_num: currentUserNum, // 테스트용 유저 번호
+    message_text: text,
+  };
+  socket.emit("message", data);
+  console.log("[ws]메시지 전송:", data);
   input.value = "";
+
+  if (!text.trim()) return;
 }
 
 document.getElementById("sendBtn").addEventListener("click", sendMessage);

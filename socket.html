@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Socket.io Test</title>
+  </head>
+  <body>
+    <h1>채팅 테스트</h1>
+    <input type="text" id="messageInput" placeholder="메시지 입력" />
+    <button onclick="send()">전송</button>
+    <ul id="messages"></ul>
+
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+
+    <script>
+      // 2. 서버 주소로 소켓 연결 (서버 주소가 http://localhost:3000 일 때)
+      const socket = io("http://127.0.0.1:3000");
+
+      // 연결 확인
+      socket.on("connect", () => {
+        console.log("[Socket] 서버에 연결되었습니다! ID:", socket.id);
+      });
+
+      // 서버로부터 메시지 수신 (newMessage 이벤트)
+      socket.on("message", (data) => {
+        const li = document.createElement("li");
+        li.textContent = `${data.user_num}: ${data.message_text}`;
+        document.getElementById("messages").appendChild(li);
+      });
+
+      // 메시지 전송 함수
+      function send() {
+        const input = document.getElementById("messageInput");
+        const data = {
+          chatroom_num: 1, // 테스트용 방 번호
+          user_num: 99, // 테스트용 유저 번호
+          message_text: input.value,
+        };
+
+        // 서버로 메시지 보냄 (sendMessage 이벤트)
+        socket.emit("message", data);
+        input.value = "";
+      }
+    </script>
+  </body>
+</html>
